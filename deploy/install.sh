@@ -1,0 +1,139 @@
+#! /bin/bash
+
+file_name="";
+
+echo "Enter DNS (api.limon.iguzman.com.mx):"
+read dns
+if [ ! -n "$dns" ]
+then
+	echo "Error: DNS variable not provided: i.e. api.lemon.iguzman.com.mx";
+    exit 1;
+fi
+
+echo "Enter Folder name (lemon-api):"
+read folder
+if [ ! -n "$folder" ]
+then
+	echo "Error: folder variable not provided: lemon-api";
+    exit 1;
+fi
+
+echo "Enter Process Name (lemon_api_staging):"
+read process_name
+if [ ! -n "$process_name" ]
+then
+	echo "Error: porcess name variable not provided: lemon_api_staging";
+    exit 1;
+fi
+
+echo "Enter Port (4050):"
+read port
+if [ ! -n "$port" ]
+then
+	echo "Error: port variable not provided: 4050";
+    exit 1;
+fi
+
+echo "Enter environment variable (staging):"
+read envt
+if [ ! -n "$envt" ]
+then
+	echo "Error: environtment variable not provided: staging";
+    exit 1;
+fi
+
+echo "Enter virtualenv (lemon):"
+read venv
+if [ ! -n "$venv" ]
+then
+	echo "Error: virtualenv variable not provided: lemon";
+    exit 1;
+fi
+
+echo "Enter Django App name (lemon_api):"
+read django_app_name
+if [ ! -n "$django_app_name" ]
+then
+	echo "Error: Django App name variable not provided: lemon_api";
+    exit 1;
+fi
+
+echo "Enter App ID (0):"
+read app_id
+if [ ! -n "$app_id" ]
+then
+	echo "Error: App ID variable not provided: 0";
+    exit 1;
+fi
+
+echo "Enter Django workers (2):"
+read django_workers
+if [ ! -n "$django_workers" ]
+then
+	echo "Error: Django workers variable not provided: 2";
+    exit 1;
+fi
+
+# ============ Functions ============
+# $1 type -> nginx / supervisor
+PopulateFile () {
+    file_name="$port.$dns.conf";
+    cp "deploy/$1.conf" $file_name;
+    chmod 775 $file_name;
+    sed -i "s/PORT/$port/g" $file_name;
+    sed -i "s/DNS/$dns/g" $file_name;
+    sed -i "s/ENVT/$envt/g" $file_name;
+    sed -i "s/FOLDER/$folder/g" $file_name;
+    sed -i "s/PROCESS_NAME/$process_name/g" $file_name;
+    sed -i "s/VENV/$venv/g" $file_name;
+    sed -i "s/OS_USER/$USER/g" $file_name;
+    sed -i "s/DJANGO_APP_NAME/$django_app_name/g" $file_name;
+    sed -i "s/APP_ID/$app_id/g" $file_name;
+    sed -i "s/DJANGO_WORKERS/$django_workers/g" $file_name;
+}
+
+echo "Create Nginx configuration? (y/n)"
+read create
+
+if [ "$create" == "y" ]
+then
+	PopulateFile "nginx";
+    echo "======================================";
+    echo "$file_name:";
+    cat $file_name;
+    echo "======================================";
+    echo "Deploy Nginx configuration? (y/n)"
+    read deploy
+    if [ "$deploy" == "y" ]
+    then
+        sudo cp ./$file_name /etc/nginx/sites-available/;
+        sudo ln -s /etc/nginx/sites-available/$file_name /etc/nginx/sites-enabled/;
+        sudo nginx -t;
+        sudo service nginx restart;
+    fi
+    rm ./$file_name;
+fi
+
+echo "Create Supervisor configuration? (y/n)"
+read create
+if [ "$create" == "y" ]
+then
+    PopulateFile "supervisor";
+    echo "======================================";
+    echo $file_name;
+    cat $file_name;
+    echo "======================================";
+    echo "Deploy Supervisor configuration? (y/n)"
+    read deploy
+    if [ "$deploy" == "y" ]
+    then
+        sudo cp ./$file_name /etc/supervisor/conf.d/;
+        sudo supervisorctl reread;
+        sudo supervisorctl update;
+        sudo supervisorctl status;
+    fi
+    rm ./$file_name;
+fi
+
+echo "Done"
+exit 0;
