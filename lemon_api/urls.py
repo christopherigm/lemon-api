@@ -27,8 +27,37 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
 )
+from common.views import (
+    CountryViewSet,
+    StateViewSet,
+    CityViewSet,
+    System
+)
+from users.views import (
+    UserViewSet,
+    GroupViewSet,
+    UserAddressViewSet,
+    Login,
+    ActivateUser
+)
+from posts.views import (
+    CategoryViewSet,
+    PostViewSet,
+    HashtagViewSet
+)
 
 router = routers.DefaultRouter()
+
+router.register(r'countries', CountryViewSet)
+router.register(r'states', StateViewSet)
+router.register(r'cities', CityViewSet)
+router.register(r'users', UserViewSet)
+router.register(r'user-address', UserAddressViewSet)
+router.register(r'groups', GroupViewSet)
+
+router.register(r'categories', CategoryViewSet)
+router.register(r'posts', PostViewSet)
+router.register(r'hashtags', HashtagViewSet)
 
 # https://github.com/axnsan12/drf-yasg
 schema_view = get_schema_view(
@@ -53,10 +82,10 @@ urlpatterns = [
     url(r'^v1/token/$', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     url(r'^v1/token/refresh/$', TokenRefreshView.as_view(), name='token_refresh'),
     url(r'^v1/token/verify/$', TokenVerifyView.as_view(), name='token_verify'),
-    # url(r'^v1/login', Login.as_view(), name='login'),
-    # url(r'^v1/activate-user', ActivateUser.as_view(), name='activate-user'),
+    url(r'^v1/login', Login.as_view(), name='login'),
+    url(r'^v1/activate-user', ActivateUser.as_view(), name='activate-user'),
     path('tinymce/', include('tinymce.urls')),
-    # path('v1/system/info', System.as_view()),
+    path('v1/system/info', System.as_view()),
     url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
