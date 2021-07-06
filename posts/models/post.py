@@ -12,7 +12,14 @@ class Post(CommonFields):
     title = models.CharField (
         max_length = 64,
         null=False,
-        blank=True
+        blank=False,
+        unique=True
+    )
+    slug = models.SlugField (
+        max_length = 64,
+        null=False,
+        blank=False,
+        unique=True
     )
     category=models.ForeignKey (
         'posts.Category',
@@ -27,14 +34,17 @@ class Post(CommonFields):
         blank=False,
         on_delete=models.CASCADE
     )
-    description = HTMLField(
+    featured=models.BooleanField (
+        blank=False,
+        default=False
+    )
+    video=models.URLField(
         null=True,
         blank=True
     )
-    slug = models.SlugField (
-        max_length = 64,
-        null = True,
-        blank = True
+    description = HTMLField(
+        null=True,
+        blank=True
     )
     img_picture = ResizedImageField (
         null=True,
@@ -46,6 +56,10 @@ class Post(CommonFields):
     hashtags=models.ManyToManyField (
         'posts.Hashtag',
         related_name='post_hashtags',
+        blank=True
+    )
+    reference=models.URLField(
+        null=True,
         blank=True
     )
 

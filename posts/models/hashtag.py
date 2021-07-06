@@ -5,7 +5,13 @@ class Hashtag(CommonFields):
     hashtag = models.SlugField (
         max_length = 32,
         null = True,
-        blank = True
+        blank = True,
+        unique=True
+    )
+    order=models.PositiveIntegerField (
+        null=True,
+        blank=True,
+        default=1
     )
 
     def __str__(self):
