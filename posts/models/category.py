@@ -5,8 +5,9 @@ from common.models import Picture
 class Category(Picture):
     slug = models.SlugField (
         max_length = 64,
-        null = True,
-        blank = True
+        null=False,
+        blank=False,
+        unique=True
     )
     hashtag=models.ForeignKey (
         'posts.Hashtag',
