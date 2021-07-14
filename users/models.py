@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from tinymce.models import HTMLField
 from django.contrib.auth.models import User
 from django_resized import ResizedImageField
 from common.tools import set_media_url
@@ -67,6 +68,10 @@ class UserProfile(CommonFields):
         default=False,
         blank=False,
         null=False
+    )
+    biography = HTMLField(
+        null=True,
+        blank=True
     )
 
     def __str__(self):
