@@ -52,7 +52,8 @@ class UserSerializer(HyperlinkedModelSerializer):
             return {
                 'newsletter': profile.newsletter,
                 'promotions': profile.promotions,
-                'img_picture': img
+                'img_picture': img,
+                'biography': profile.biography
             }
         return None
 
