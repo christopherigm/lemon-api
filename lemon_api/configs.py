@@ -69,13 +69,13 @@ class LOCAL(Common):
 class QA(Common):
     API_URL = 'https://api.qa.limon.longmont.iguzman.com.mx/v1/'
     WEB_APP_URL = 'https://qa.limon.longmont.iguzman.com.mx/'
-    MEDIA_ROOT=os.path.join('/hdd/media/qa/lemon/', 'media')
+    MEDIA_ROOT=os.path.join('/hdd/media/qa/lemon-api/', 'media')
 
 
 class STAGING(Common):
     API_URL = 'https://api.limon.iguzman.com.mx/v1/'
     WEB_APP_URL = 'https://limon.iguzman.com.mx/'
-    MEDIA_ROOT=os.path.join('/hdd/media/staging/lemon/', 'media')
+    MEDIA_ROOT=os.path.join('/hdd/media/staging/lemon-api/', 'media')
 
 
 class MASTER(Common):
@@ -84,7 +84,7 @@ class MASTER(Common):
     JWT_REFRESH_EXPIRATION_MINUTES = 30
     API_URL = 'https://api.limon.news/v1/'
     WEB_APP_URL = 'https://www.limon.news/'
-    MEDIA_ROOT=os.path.join('/hdd/media/master/lemon/', 'media')
+    MEDIA_ROOT=os.path.join('/hdd/media/master/lemon-api/', 'media')
 
 
 if ENVIRONMENT == 'qa':
