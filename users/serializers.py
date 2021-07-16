@@ -48,7 +48,10 @@ class UserSerializer(HyperlinkedModelSerializer):
             profile=profile[0]
             img=None
             if profile.img_picture is not None:
-                img='/media/{}'.format(str(profile.img_picture))
+                img='{}media/{}'.format(
+                    settings.MEDIA_WEB_URL,
+                    str(profile.img_picture)
+                )
             return {
                 'newsletter': profile.newsletter,
                 'promotions': profile.promotions,
