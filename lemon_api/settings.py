@@ -155,7 +155,7 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = env.MEDIA_ROOT
 
-MEDIA_WEB_URL = env.MEDIA_WEB_URL
+API_DNS = env.API_DNS
 
 MEDIA_URL = '/media/'
 

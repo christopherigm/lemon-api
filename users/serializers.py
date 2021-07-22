@@ -49,7 +49,7 @@ class UserSerializer(HyperlinkedModelSerializer):
             img=None
             if profile.img_picture is not None:
                 img='{}media/{}'.format(
-                    settings.MEDIA_WEB_URL,
+                    settings.API_DNS,
                     str(profile.img_picture)
                 )
             return {
