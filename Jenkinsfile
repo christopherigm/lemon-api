@@ -39,7 +39,7 @@ pipeline {
         stage("Build") {
             steps {
                 sh ". /var/www/virtualenvs/$DJANGO_APP_NAME-$ENV/bin/activate"
-                sh "sudo cp /var/www/env/$ENV/$APP_FOLDER-$ENV.env ./$DJANGO_APP_NAME/.env"
+                sh "sudo cp /var/www/env/$ENV/$APP_FOLDER-$ENV\\.env ./$DJANGO_APP_NAME/.env"
                 sh "/var/www/virtualenvs/$DJANGO_APP_NAME-$ENV/bin/python3 -m pip install -r requirements.txt"
                 sh "/var/www/virtualenvs/$DJANGO_APP_NAME-$ENV/bin/python3 manage.py migrate"
                 sh "/var/www/virtualenvs/$DJANGO_APP_NAME-$ENV/bin/python3 manage.py collectstatic --noinput"
