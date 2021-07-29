@@ -6,7 +6,7 @@ class Category(Picture):
     slug = models.SlugField (
         max_length = 64,
         null=False,
-        blank=False,
+        blank=True,
         unique=True
     )
     hashtag=models.ForeignKey (
@@ -34,6 +34,11 @@ class Category(Picture):
 
     def __str__(self):
         return self.title
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = get_unique_slug(self.title, Category)
+        super().save(*args, **kwargs)
 
     class JSONAPIMeta:
         resource_name = 'Category'
