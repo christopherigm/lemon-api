@@ -13,16 +13,16 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='post',
             name='og_description',
-            field=models.CharField(blank=True, max_length=32, null=True),
+            field=models.CharField(blank=True, max_length=64, null=True),
         ),
         migrations.AlterField(
             model_name='post',
             name='og_title',
-            field=models.CharField(blank=True, max_length=32, null=True),
+            field=models.CharField(blank=True, max_length=64, null=True),
         ),
         migrations.AlterField(
             model_name='post',
             name='title',
-            field=models.CharField(max_length=32, unique=True),
+            field=models.CharField(max_length=64, unique=True),
         ),
     ]
