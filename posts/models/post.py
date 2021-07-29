@@ -10,7 +10,7 @@ def picture(instance, filename):
 
 class Post(CommonFields):
     title = models.CharField (
-        max_length = 32,
+        max_length = 64,
         null=False,
         blank=False,
         unique=True
@@ -59,12 +59,12 @@ class Post(CommonFields):
         blank=True
     )
     og_title = models.CharField (
-        max_length = 32,
+        max_length = 64,
         null=True,
         blank=True
     )
     og_description = models.CharField (
-        max_length = 32,
+        max_length = 64,
         null=True,
         blank=True
     )
