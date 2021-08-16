@@ -13,18 +13,26 @@ class Picture(CommonFields):
         null = True,
         blank = True
     )
-    description = HTMLField(
+    description = HTMLField (
         null=True,
         blank=True
+    )
+    order = models.PositiveIntegerField (
+        verbose_name="índice de ordenamiento",
+        null=True,
+        blank=True,
+        default=0,
+        help_text="Índice númerico de ordenamiento de este registro"
     )
     href = models.URLField (
         null = True,
         blank = True
     )
+    # https://pypi.org/project/django-resized/
     img_picture = ResizedImageField (
         null=True,
         blank=True,
-        size=[1920, 1080],
+        size=[1280, 720],
         quality=90,
         upload_to=picture
     )

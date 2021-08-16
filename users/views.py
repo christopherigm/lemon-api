@@ -12,15 +12,13 @@ from django.http import Http404
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from rest_framework_simplejwt.views import TokenObtainPairView
-
-from rest_framework.decorators import api_view
+from django.contrib.auth.models import User, Group
+from users.models import UserAddress, UserProfile
 from common.permissions import (
     IsAdminOrIsItSelf,
     IsSuperUser,
     IsAdminOrBelongsToItSelf
 )
-from django.contrib.auth.models import User, Group
-from users.models import UserAddress, UserProfile
 from users.serializers import (
     GroupSerializer,
     UserSerializer,

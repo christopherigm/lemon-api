@@ -32,6 +32,7 @@ pipeline {
                 sh "sudo mkdir /var/www/static/$ENV/$APP_FOLDER/media -p"
                 sh "sudo chmod -R 777 /var/www/static/$ENV/$APP_FOLDER/media"
 
+                sh "sudo rm -rf /var/www/static/$ENV/$APP_FOLDER/static"
                 sh "sudo mkdir /var/www/static/$ENV/$APP_FOLDER/static -p"
                 sh "sudo chmod -R 777 /var/www/static/$ENV/$APP_FOLDER/static"
             }
