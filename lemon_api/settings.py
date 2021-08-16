@@ -146,6 +146,8 @@ WEB_APP_URL = env.WEB_APP_URL
 
 API_URL = env.API_URL
 
+API_DNS = env.API_DNS
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 

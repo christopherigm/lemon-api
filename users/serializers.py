@@ -17,7 +17,7 @@ class GroupSerializer(HyperlinkedModelSerializer):
         model = Group
         fields = ['url', 'name']
 
-        
+
 class UserProfileSerializer(HyperlinkedModelSerializer):
     
     class Meta:
